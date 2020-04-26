@@ -15,10 +15,9 @@ int main() {
     thread addOnlineClientThread { []() {
         FeverRPC::Factory factory;
         while (true) {
-            FeverRPC::Caller newClient = factory.accept();
-            string username = newClient.call<string>( "getUsername" );
-            Connection connection( username, newClient );
-            connections.push_back( connection );
+            FeverRPC::Caller newCaller = factory.accept();
+            string username = newCaller.call<string>( "getUsername" );
+            connections.insert( pair{username, newCaller} );
         }
     }};
     thread_guard ag( addOnlineClientThread );

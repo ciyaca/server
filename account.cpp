@@ -4,26 +4,21 @@
 using namespace std;
 
 
-vector<Account> accounts;
-vector<Connection> connections;
-vector<Group> groups;
+map<string, string> accounts;
+map<string, FeverRPC::Caller> connections;
+map<string, Group> groups;
 
 
-Account::Account ( string _username, string _password ) : username(_username), password(_password) {}
+Group::Group ( string username, FeverRPC::Caller caller ) {
 
-Connection::Connection ( string _username, FeverRPC::Caller _caller ) : username(_username), caller(_caller) {}
+    memberConnections[username] = caller;
 
-Group::Group ( string _groupName ) : groupName(_groupName) {}
+}
 
 
 int Group::addMember ( string username ) {
 
-    for ( auto eachConnection : connections ) {
-        if ( eachConnection.username == username ) {
-            this->groupMembers.push_back( eachConnection );
-            break;
-        }
-    }
+    this->memberConnections[username] = connections[username];
 
     return 0;
 
@@ -32,12 +27,7 @@ int Group::addMember ( string username ) {
 
 int Group::removeMember( string username ) {
 
-    for ( auto eachConnection = this->groupMembers.begin(); eachConnection != this->groupMembers.end(); eachConnection++ ) {
-        if ( (*eachConnection).username == username ) {
-            this->groupMembers.erase( eachConnection );
-            break;
-        }
-    }
+    this->memberConnections.erase( this-> memberConnections.find( username ) );
 
     return 0;
 
@@ -46,41 +36,34 @@ int Group::removeMember( string username ) {
 
 int regist ( string username, string password ) {
 
-    for ( auto eachAccount : accounts ) {
-        if ( eachAccount.username == username ) {
-            return -1;
-        }
+    if ( accounts.find( username ) == accounts.end() ) {
+        accounts[username] = password;
+        return 1;
+    } else {
+        return -1;
     }
-
-    Account account( username, password );
-    accounts.push_back( account );
-    return 1;
 
 }
 
 
 int login ( string username, string password ) {
 
-    for ( auto eachAccount : accounts ) {
-        if ( eachAccount.username == username ) {
-            if ( eachAccount.password == password ) {
-                return 1;
-            } else {
-                return -1;
-            }
+    if ( accounts.find( username ) != accounts.end() ) {
+        if ( accounts[username] == password ) {
+            return 1;
+        } else {
+            return -1;
         }
+    } else {
+        return -2;
     }
-
-    return -2;
 
 }
 
 
 int newGroup ( string username, string groupName ) {
 
-    Group group( groupName );
-    group.addMember( username );
-    groups.push_back( group );
+    groups[groupName] = Group( username, connections[username] );
 
     return 0;
 
@@ -89,12 +72,7 @@ int newGroup ( string username, string groupName ) {
 
 int joinGroup ( string username, string groupName ) {
 
-    for ( auto eachGroup : groups ) {
-        if ( eachGroup.groupName == groupName ) {
-            eachGroup.addMember( username );
-            break;
-        }
-    }
+    groups[groupName].addMember( username );
 
     return 0;
 
@@ -103,12 +81,7 @@ int joinGroup ( string username, string groupName ) {
 
 int exitGroup ( string username, string groupName ) {
 
-    for ( auto eachGroup : groups ) {
-        if ( eachGroup.groupName == groupName ) {
-            eachGroup.removeMember( username );
-            break;
-        }
-    }
+    groups[groupName].removeMember( username );
 
     return 0;
 

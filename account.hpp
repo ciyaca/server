@@ -12,38 +12,13 @@
 using namespace std;
 
 
-class Account {
-
-    public:
-        string username;
-        string password;
-
-    public:
-        Account( string _username, string _password );
-
-};
-
-
-class Connection {
-
-    public:
-        string username;
-        FeverRPC::Caller caller;
-
-    public:
-        Connection( string _username, FeverRPC::Caller _caller );
-
-};
-
-
 class Group {
 
     public:
-        string groupName;
-        vector<Connection> groupMembers;
+        map<string, FeverRPC::Caller> memberConnections;
 
     public:
-        Group( string _groupName );
+        Group( string username, FeverRPC::Caller caller );
         int addMember( string username );
         int removeMember( string username );
 
@@ -57,6 +32,6 @@ int joinGroup ( string username, string groupName );
 int exitGroup ( string username, string groupName );
 
 
-extern vector<Account> accounts;
-extern vector<Connection> connections;
-extern vector<Group> groups;
+extern map<string, string> accounts;
+extern map<string, FeverRPC::Caller> connections;
+extern map<string, Group> groups;
