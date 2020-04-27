@@ -1,36 +1,43 @@
+#include <msgpack.hpp>
+
 #include "account.hpp"
 
 
 using namespace std;
 
 
-map<string, vector<pair<string, string>> postMap;
+map<string, map<string, string>> postMap;
 
 
 int post ( string username, string title, string body ) {
 
-    postMap[title].push_back( pair<string, string>( username, body ) );
+    postMap[title][username] = body;
 
     return 0;
 
 }
 
 
-int reply ( string username, string title, string body ) {
+int reply( string username, string title, string body ) {
 
-    postMap[title].push_back( pair<string, string>( username, body ) );
+    postMap[title][username] = body;
 
     return 0;
 
 }
 
 
-string checkPosts ( string username, int quantity ) {
+string checkPosts( string username, int quantity ) {
 
-    for( eachPost = postMap.end(); eachPost != postMap.begin(); eachPost-- ) {
+    map<string, map<string, string>> reqPostMap;
+    reqPostMap.insert( postMap.end()-quantity, postMap.end() );
 
-        
+    stringstream buffer;
+    msgpack::pack( buffer, reqPostMap );
 
-    }
+    auto conn = connections.find( username );
+    conn->second.call<int>( "recvPost", buffer.str() );
+
+    return 0;
 
 }
