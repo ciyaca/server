@@ -9,25 +9,35 @@ map<string, FeverRPC::Caller> connections;
 map<string, Group> groups;
 
 
-Group::Group ( string username, FeverRPC::Caller caller ) {
+Group::Group () {
 
-    memberConnections[username] = caller;
+}
+
+
+Group::Group ( string username ) {
+
+    this->members.push_back( username );
 
 }
 
 
 int Group::addMember ( string username ) {
 
-    this->memberConnections[username] = connections[username];
+    this->members.push_back( username );
 
     return 0;
 
 }
 
 
-int Group::removeMember( string username ) {
+int Group::removeMember ( string username ) {
 
-    this->memberConnections.erase( this-> memberConnections.find( username ) );
+    for ( auto eachUsername = this->members.begin(); eachUsername != this->members.end(); eachUsername++ ) {
+        if ( *eachUsername == username ) {
+            this->members.erase( eachUsername );
+            break;
+        }
+    }
 
     return 0;
 
@@ -63,7 +73,7 @@ int login ( string username, string password ) {
 
 int newGroup ( string username, string groupName ) {
 
-    groups[groupName] = Group( username, connections[username] );
+    groups[groupName] = Group( username );
 
     return 0;
 

@@ -6,12 +6,7 @@ using namespace std;
 
 int sendMessage ( string sourceName, string targetName, string message ) {
 
-    for( auto eachConnection : connections ) {
-        if ( eachConnection.username == targetName ) {
-            eachConnection.caller.call<int>( "recvMessage", sourceName, message );
-            break;
-        }
-    }
+    connections[targetName].call<int>( "recvMessage", sourceName, message );
 
     return 0;
     
@@ -19,14 +14,9 @@ int sendMessage ( string sourceName, string targetName, string message ) {
 
 
 int boardcast ( string sourceName, string targetGroupName, string message ) {
-    
-    for ( auto eachGroup : groups ) {
-        if ( eachGroup.groupName == targetGroupName ) {
-            for( auto eachConnection : eachGroup.groupMembers ) {
-                eachConnection.caller.call<int>( "recvMessage", sourceName, message );
-            }
-            break;
-        }
+
+    for ( auto eachUsername : groups[targetGroupName].members ) {
+        connections[eachUsername].call<int>( "recvGroupMessage", sourceName, targetGroupName,message );
     }
 
     return 0;

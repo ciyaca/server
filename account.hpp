@@ -15,12 +15,13 @@ using namespace std;
 class Group {
 
     public:
-        map<string, FeverRPC::Caller> memberConnections;
+        vector<string> members;
 
     public:
-        Group( string username, FeverRPC::Caller caller );
-        int addMember( string username );
-        int removeMember( string username );
+        Group ();
+        Group ( string username );
+        int addMember ( string username );
+        int removeMember ( string username );
 
 };
 
