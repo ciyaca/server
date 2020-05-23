@@ -18,7 +18,7 @@ int post ( string username, string title, string body ) {
 }
 
 
-int reply( string username, string title, string body ) {
+int replyPost ( string username, string title, string body ) {
 
     postMap[title][username] = body;
 
@@ -30,7 +30,7 @@ int reply( string username, string title, string body ) {
 string checkPosts( string username, int quantity ) {
 
     map<string, map<string, string>> reqPostMap;
-    reqPostMap.insert( postMap.end()-quantity, postMap.end() );
+    reqPostMap.insert( postMap.begin(), postMap.end() );  // test only waiting for debug
 
     stringstream buffer;
     msgpack::pack( buffer, reqPostMap );

@@ -14,7 +14,7 @@ all: bin server
 clean:
 	rm -r bin
 
-server: bin/server_main.o bin/account.o bin/im.o bin/feverrpc.o bin/feverrpc-factory.o bin/utils.o bin/feverrpc-server.o
+server: bin/server_main.o bin/account.o bin/im.o bin/bbs.o bin/feverrpc.o bin/feverrpc-factory.o bin/utils.o bin/feverrpc-server.o
 	g++ $^ -o bin/$@ -pthread ${INCLUDE}
 
 bin:

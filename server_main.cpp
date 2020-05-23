@@ -5,6 +5,7 @@
 
 #include "account.hpp"
 #include "im.hpp"
+#include "bbs.hpp"
 
 
 using namespace std;
@@ -28,6 +29,13 @@ int main() {
             rpc.bind("login", login);
             rpc.bind("regist", regist);
             rpc.bind("sendMessage", sendMessage);
+            rpc.bind("boardcast", boardcast);
+            rpc.bind("newGroup", newGroup);
+            rpc.bind("joinGroup", joinGroup);
+            rpc.bind("exitGroup", exitGroup);
+            rpc.bind("post", post);
+            rpc.bind("replyPost", replyPost);
+            rpc.bind("checkPosts", checkPosts);
             rpc.c2s();
         }};
         thread_guard sg( serveOneClientTread );

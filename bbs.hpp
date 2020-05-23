@@ -1,6 +1,6 @@
-#include "account.h"
+#include "account.hpp"
 
 
 int post ( string username, string title, string body );
-int reply ( string username, string title );
+int replyPost ( string username, string title, string body );
 string checkPosts ( string username, int quantity );
