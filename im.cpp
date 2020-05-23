@@ -19,7 +19,7 @@ int boardcast ( string sourceName, string targetGroupName, string message ) {
 
     for ( auto eachUsername : groups[targetGroupName].members ) {
         auto iter = connections.find( eachUsername );
-        iter->second.call<int>( "recvGroupMessage", sourceName, targetGroupName,message );
+        iter->second.call<int>( "recvMessage", sourceName, targetGroupName,message );
     }
 
     cout<<"from: "<<sourceName<<"; to: "<<targetGroupName<<endl<<"[ "<<message<<" ]"<<endl;
