@@ -13,6 +13,7 @@ int post ( string username, string title, string body ) {
 
     postMap[title][username] = body;
 
+    cout<<"new post: [ "<<title<<" : "<<body<<" ]"<<endl;
     return 0;
 
 }
@@ -22,6 +23,7 @@ int replyPost ( string username, string title, string body ) {
 
     postMap[title][username] = body;
 
+    cout<<"new replyPost: [ "<<title<<" : "<<body<<" ]"<<endl;
     return 0;
 
 }

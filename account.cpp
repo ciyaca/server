@@ -48,8 +48,10 @@ int regist ( string username, string password ) {
 
     if ( accounts.find( username ) == accounts.end() ) {
         accounts[username] = password;
+	cout<<username<<" regist success!"<<endl;
         return 1;
     } else {
+	cout<<username<<" regist failed!"<<endl;
         return -1;
     }
 
@@ -60,11 +62,14 @@ int login ( string username, string password ) {
 
     if ( accounts.find( username ) != accounts.end() ) {
         if ( accounts[username] == password ) {
+	        cout<<username<<" login success!"<<endl;
             return 1;
         } else {
+    	    cout<<username<<" wrong password!"<<endl;
             return -1;
         }
     } else {
+        cout<<username<<" not exist!"<<endl;
         return -2;
     }
 
@@ -75,6 +80,7 @@ int newGroup ( string username, string groupName ) {
 
     groups[groupName] = Group( username );
 
+    cout<<"group "<<groupName<<" created!"<<endl;
     return 0;
 
 }
@@ -84,6 +90,7 @@ int joinGroup ( string username, string groupName ) {
 
     groups[groupName].addMember( username );
 
+    cout<<username<<" is in "<<groupName<<" now!"<<endl;
     return 0;
 
 } 
@@ -93,6 +100,7 @@ int exitGroup ( string username, string groupName ) {
 
     groups[groupName].removeMember( username );
 
+    cout<<username<<" is not in "<<groupName<<" now!"<<endl;
     return 0;
 
 }
