@@ -6,6 +6,7 @@
 using namespace std;
 
 
+int postID = 0;
 map<string, map<string, string>> postMap;
 
 
