@@ -1,3 +1,9 @@
+-- MySQL dump 10.13  Distrib 5.7.27, for Linux (x86_64)
+--
+-- Host: localhost    Database: ciyaca
+-- ------------------------------------------------------
+-- Server version	5.7.27-0ubuntu0.16.04.1
+
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -18,7 +24,7 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/ `ciyaca` /*!40100 DEFAULT CHARACTER SET
 USE `ciyaca`;
 
 --
-Table structure for table `friend_apply`
+-- Table structure for table `friend_apply`
 --
 
 DROP TABLE IF EXISTS `friend_apply`;
@@ -43,7 +49,7 @@ INSERT INTO `friend_apply` VALUES (12,5,NULL),(13,5,NULL);
 UNLOCK TABLES;
 
 --
-Table structure for table `friend_info`
+-- Table structure for table `friend_info`
 --
 
 DROP TABLE IF EXISTS `friend_info`;
@@ -66,7 +72,7 @@ INSERT INTO `friend_info` VALUES (123,133),(123,233);
 UNLOCK TABLES;
 
 --
-Table structure for table `group_chat_history`
+-- Table structure for table `group_chat_history`
 --
 
 DROP TABLE IF EXISTS `group_chat_history`;
@@ -91,7 +97,7 @@ LOCK TABLES `group_chat_history` WRITE;
 UNLOCK TABLES;
 
 --
-Table structure for table `group_chat_info`
+-- Table structure for table `group_chat_info`
 --
 
 DROP TABLE IF EXISTS `group_chat_info`;
@@ -115,7 +121,7 @@ LOCK TABLES `group_chat_info` WRITE;
 UNLOCK TABLES;
 
 --
-Table structure for table `group_chat_management`
+-- Table structure for table `group_chat_management`
 --
 
 DROP TABLE IF EXISTS `group_chat_management`;
@@ -139,7 +145,7 @@ LOCK TABLES `group_chat_management` WRITE;
 UNLOCK TABLES;
 
 --
-Table structure for table `photo`
+-- Table structure for table `photo`
 --
 
 DROP TABLE IF EXISTS `photo`;
@@ -163,7 +169,7 @@ LOCK TABLES `photo` WRITE;
 UNLOCK TABLES;
 
 --
-Table structure for table `single_chat_history`
+-- Table structure for table `single_chat_history`
 --
 
 DROP TABLE IF EXISTS `single_chat_history`;
@@ -189,7 +195,7 @@ LOCK TABLES `single_chat_history` WRITE;
 UNLOCK TABLES;
 
 --
-Table structure for table `single_chat_info`
+-- Table structure for table `single_chat_info`
 --
 
 DROP TABLE IF EXISTS `single_chat_info`;
@@ -214,7 +220,7 @@ INSERT INTO `single_chat_info` VALUES (00000000111,123,321),(00000000112,321,123
 UNLOCK TABLES;
 
 --
-Table structure for table `temperary_message`
+-- Table structure for table `temperary_message`
 --
 
 DROP TABLE IF EXISTS `temperary_message`;
@@ -285,4 +291,18 @@ BEGIN
 
 END */;;
 DELIMITER ;
- 
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2019-09-04 11:17:18

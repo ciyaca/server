@@ -1,4 +1,5 @@
 #include "account.hpp"
+#include "sql/sql.hpp"
 
 
 using namespace std;
@@ -46,13 +47,14 @@ int Group::removeMember ( string username ) {
 
 int regist ( string username, string password ) {
 
-    if ( accounts.find( username ) == accounts.end() ) {
-        accounts[username] = password;
-	cout<<username<<" regist success!"<<endl;
-        return 1;
-    } else {
-	cout<<username<<" regist failed!"<<endl;
+    string queryStr = "INSERT INTO user (user_name, password, nickname, signature, head_portrait_id, password_protect_id, answer) VALUES (" + username + ",md5(" + password + "),'no_nickname','no_signature',0,0,'no_answer');";
+
+    if ( mysql_query( &ciyacaSQL, queryStr.c_str() ) ) {
+        cout<<username<<" regist failed!"<<endl;
         return -1;
+    } else {
+	    cout<<username<<" regist success!"<<endl;
+        return 1;
     }
 
 }
@@ -60,19 +62,23 @@ int regist ( string username, string password ) {
 
 int login ( string username, string password ) {
 
-    if ( accounts.find( username ) != accounts.end() ) {
-        if ( accounts[username] == password ) {
-	        cout<<username<<" login success!"<<endl;
-            return 1;
-        } else {
-    	    cout<<username<<" wrong password!"<<endl;
-            return -1;
-        }
-    } else {
+    string queryStr = "SELECT " + password + " FROM user WHERE user_name = " + username + ";";
+
+    if( mysql_query( &ciyacaSQL, queryStr.c_str() ) ){
         cout<<username<<" not exist!"<<endl;
         return -2;
+    } else {
+        MYSQL_RES* result = mysql_use_result( &ciyacaSQL );
+        MYSQL_ROW row = mysql_fetch_row( result );
+        string realPassword( row[0] );
+        if( password == realPassword ){
+            cout<<username<<" login success!"<<endl;
+            return 1;
+        } else {
+            cout<<username<<" wrong password!"<<endl;
+            return -1;
+        }
     }
-
 }
 
 

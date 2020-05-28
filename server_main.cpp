@@ -6,12 +6,15 @@
 #include "account.hpp"
 #include "im.hpp"
 #include "bbs.hpp"
+#include "sql/sql.hpp"
 
 
 using namespace std;
 
 
 int main() {
+
+    ciyacaSqlInit();
 
     thread addOnlineClientThread { []() {
         FeverRPC::Factory factory;
