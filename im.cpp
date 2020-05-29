@@ -17,12 +17,23 @@ int sendMessage ( string sourceName, string targetName, string message ) {
 
 int boardcast ( string sourceName, string targetGroupName, string message ) {
 
-    for ( auto eachUsername : groups[targetGroupName].members ) {
-        auto iter = connections.find( eachUsername );
-        iter->second.call<int>( "recvMessage", sourceName, targetGroupName,message );
-    }
+    string queryStr = "SELECT username FROM grp_usr WHERE groupname='" + targetGroupName + "';";
 
-    cout<<"from: "<<sourceName<<"; to: "<<targetGroupName<<endl<<"[ "<<message<<" ]"<<endl;
-    return 0;
+    if( mysql_query( &ciyacaSQL, queryStr.c_str() ) ){
+        cout<<targetGroupName<<" not exist!"<<endl;
+        return -1;
+    } else {
+        MYSQL_RES* result = mysql_store_result( &ciyacaSQL );
+        
+        for ( int i = 0; i<mysql_num_rows( result ); i++ ) {
+            MYSQL_ROW row = mysql_fetch_row( result );
+            auto iter = connections.find( row[0] );
+            iter->second.call<int>( "recvMessage", sourceName, targetGroupName, message );
+            cout<<"From: "<<sourceName<<" To: "<<row[0]<<endl<<"[ "<<message<<" ]"<<endl;
+        }
+
+        mysql_free_result( result );
+        return 1;
+    }
 
 }

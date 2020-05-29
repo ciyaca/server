@@ -33,7 +33,6 @@ int main() {
             rpc.bind("regist", regist);
             rpc.bind("sendMessage", sendMessage);
             rpc.bind("boardcast", boardcast);
-            rpc.bind("newGroup", newGroup);
             rpc.bind("joinGroup", joinGroup);
             rpc.bind("exitGroup", exitGroup);
             rpc.bind("post", post);

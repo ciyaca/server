@@ -66,7 +66,7 @@ ii>dual with it(uid1=object_id,uid2=applicant_id)
 3.1 创建群
 
 
-INSERT INTO group_chat_info (member_id,group_chat_name,group_chat_admin,group_chat_manager) VALUES (adminid,group_name,1,1);
+INSERT INTO group_chat_info (member_id,group_chat_name,group_chat_admin,group_chat_info_id) VALUES (121,"test",1,1);
 
 
 3.2 添加群
