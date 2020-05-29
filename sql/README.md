@@ -7,6 +7,7 @@ INSERT INTO user (user_name, password, nickname, signature, head_portrait_id, pa
 SELECT * FROM user WHERE user_name = username;
 
 SELECT userid FROM user WHERE user_name = username;
+
 1.2.登录：
 
 SELECT password FROM user WHERE user_name = username ;
@@ -69,7 +70,6 @@ INSERT INTO group_chat_info (member_id,group_chat_name,group_chat_admin,group_ch
 
 
 3.2 添加群
-
 
 INSERT INTO group_chat_management (applicant_id,group_chat_info_id) VALUES (uid,groupid);
 
