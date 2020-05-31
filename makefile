@@ -18,7 +18,7 @@ clean:
 	rm -r bin
 
 server: bin/server_main.o bin/account.o bin/im.o bin/bbs.o bin/sql.o bin/feverrpc.o bin/feverrpc-factory.o bin/utils.o bin/feverrpc-server.o
-	g++ $^ -o bin/$@ -pthread ${INCLUDE} ${MYSQL}
+	g++ $^ -pthread ${INCLUDE} ${MYSQL} -o bin/$@
 
 bin:
 	mkdir bin

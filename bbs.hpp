@@ -1,6 +1,8 @@
 #include "account.hpp"
 
 
-int post ( string username, string title, string body );
-int replyPost ( string username, string title, string body );
-string checkPosts ( string username, int quantity );
+int post( int post_id, string postBody );
+string checkPostFromID( int post_id );
+string checkPosts( int quality );
+int uploadFile( string fileName, vector<char> fileData );
+vector<char> downloadFile( string fileName );

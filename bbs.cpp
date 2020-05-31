@@ -1,12 +1,13 @@
 #include <fstream>
 
 #include "account.hpp"
+#include "sql/sql.hpp"
 
 
 using namespace std;
 
 
-int post ( int post_id=-1, string postBody ) {
+int post( int post_id, string postBody ) {
 
     if( post_id == -1 ){
         string queryStr = "INSERT INTO posts (post_string) VALUES ('" + postBody + "');";
@@ -19,7 +20,7 @@ int post ( int post_id=-1, string postBody ) {
             return 1;
         }
     } else {
-        string queryStr = "UPDATE posts SET post_string='" + string + "' WHERE post_id=" + to_string( post_id ) + ";";
+        string queryStr = "UPDATE posts SET post_string='" + postBody + "' WHERE post_id=" + to_string( post_id ) + ";";
 
         if( mysql_query( &ciyacaSQL, queryStr.c_str() ) ){
             cout<<"failed to reply: [ "<<postBody<<" ]"<<endl;
@@ -97,11 +98,10 @@ vector<char> downloadFile( string fileName ){
     string path = "../net_disk/" + fileName;
     ifstream inputFile( path, ios::binary );
 
-    inputFile.read()
     long fileSize = inputFile.tellg();
     fileData.resize( fileSize );
     inputFile.read( fileData.data(), fileData.size() );
-    inputFile.close()
+    inputFile.close();
 
     return fileData;
 

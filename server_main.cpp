@@ -31,13 +31,15 @@ int main() {
             FeverRPC::Server rpc;
             rpc.bind("login", login);
             rpc.bind("regist", regist);
-            rpc.bind("sendMessage", sendMessage);
-            rpc.bind("boardcast", boardcast);
             rpc.bind("joinGroup", joinGroup);
             rpc.bind("exitGroup", exitGroup);
+            rpc.bind("sendMessage", sendMessage);
+            rpc.bind("sendFile", sendFile);
             rpc.bind("post", post);
-            rpc.bind("replyPost", replyPost);
+            rpc.bind("checkPostFromID", checkPostFromID);
             rpc.bind("checkPosts", checkPosts);
+            rpc.bind("uploadFile", uploadFile);
+            rpc.bind("downloadFile", downloadFile);
             rpc.c2s();
         }};
         thread_guard sg( serveOneClientTread );
