@@ -36,7 +36,6 @@ CREATE TABLE `grp_usr` (
 
 LOCK TABLES `grp_usr` WRITE;
 /*!40000 ALTER TABLE `grp_usr` DISABLE KEYS */;
-INSERT INTO `grp_usr` VALUES (1,'grp','usr'),(2,'grp1','usr2'),(3,'grp1','usr2'),(4,'grp1','usr2'),(5,'grp1','usr3'),(6,'grp1','usr4');
 /*!40000 ALTER TABLE `grp_usr` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -51,7 +50,7 @@ CREATE TABLE `posts` (
   `post_id` int unsigned NOT NULL AUTO_INCREMENT,
   `post_string` varchar(10000) NOT NULL,
   PRIMARY KEY (`post_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -83,7 +82,6 @@ CREATE TABLE `usr_pwd` (
 
 LOCK TABLES `usr_pwd` WRITE;
 /*!40000 ALTER TABLE `usr_pwd` DISABLE KEYS */;
-INSERT INTO `usr_pwd` VALUES ('admin','password123'),('grp1','usr1'),('usr','pwd'),('usr1','pwd1'),('usr2','pwd1'),('usr3','pwd1'),('usr4','pwd1');
 /*!40000 ALTER TABLE `usr_pwd` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -96,4 +94,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-05-31  6:21:37
+-- Dump completed on 2020-05-31  7:17:47
