@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: ciyacaSQL
 -- ------------------------------------------------------
--- Server version       8.0.20
+-- Server version	8.0.20
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -23,10 +23,11 @@ DROP TABLE IF EXISTS `grp_usr`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `grp_usr` (
-  `group` varchar(100) NOT NULL,
+  `group_id` int unsigned NOT NULL AUTO_INCREMENT,
+  `groupname` varchar(100) NOT NULL,
   `username` varchar(100) NOT NULL,
-  PRIMARY KEY (`group`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`group_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -35,7 +36,31 @@ CREATE TABLE `grp_usr` (
 
 LOCK TABLES `grp_usr` WRITE;
 /*!40000 ALTER TABLE `grp_usr` DISABLE KEYS */;
+INSERT INTO `grp_usr` VALUES (1,'grp','usr'),(2,'grp1','usr2'),(3,'grp1','usr2'),(4,'grp1','usr2'),(5,'grp1','usr3'),(6,'grp1','usr4');
 /*!40000 ALTER TABLE `grp_usr` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `posts`
+--
+
+DROP TABLE IF EXISTS `posts`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `posts` (
+  `post_id` int unsigned NOT NULL AUTO_INCREMENT,
+  `post_string` varchar(10000) NOT NULL,
+  PRIMARY KEY (`post_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `posts`
+--
+
+LOCK TABLES `posts` WRITE;
+/*!40000 ALTER TABLE `posts` DISABLE KEYS */;
+/*!40000 ALTER TABLE `posts` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -58,7 +83,7 @@ CREATE TABLE `usr_pwd` (
 
 LOCK TABLES `usr_pwd` WRITE;
 /*!40000 ALTER TABLE `usr_pwd` DISABLE KEYS */;
-INSERT INTO `usr_pwd` VALUES ('admin','password123');
+INSERT INTO `usr_pwd` VALUES ('admin','password123'),('grp1','usr1'),('usr','pwd'),('usr1','pwd1'),('usr2','pwd1'),('usr3','pwd1'),('usr4','pwd1');
 /*!40000 ALTER TABLE `usr_pwd` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -71,4 +96,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-05-29  5:19:22
+-- Dump completed on 2020-05-31  6:21:37
