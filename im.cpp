@@ -20,7 +20,7 @@ int sendMessage ( string sourceName, string targetName, string message, int flag
         string queryStr = "SELECT username FROM grp_usr WHERE groupname='" + targetName + "';";
 
         if( mysql_query( &ciyacaSQL, queryStr.c_str() ) ){
-            cout<<targetName<<" not exist!"<<endl;
+            cout<<targetName<<" not exist!"<<endl<<mysql_error( &ciyacaSQL )<<endl;
             return -1;
         } else {
             MYSQL_RES* result = mysql_store_result( &ciyacaSQL );
@@ -56,7 +56,7 @@ int sendFile( string sourceName, string targetName, string fileName, vector<char
         string queryStr = "SELECT username FROM grp_usr WHERE groupname='" + targetName + "';";
 
         if( mysql_query( &ciyacaSQL, queryStr.c_str() ) ){
-            cout<<targetName<<" not exist!"<<endl;
+            cout<<targetName<<" not exist!"<<endl<<mysql_error( &ciyacaSQL )<<endl;
             return -1;
         } else {
             MYSQL_RES* result = mysql_store_result( &ciyacaSQL );

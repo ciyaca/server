@@ -13,7 +13,7 @@ int post( int post_id, string postBody ) {
         string queryStr = "INSERT INTO posts (post_string) VALUES ('" + postBody + "');";
 
         if( mysql_query( &ciyacaSQL, queryStr.c_str() ) ){
-            cout<<"failed to post: [ "<<postBody<<" ]"<<endl;
+            cout<<"failed to post: [ "<<postBody<<" ]"<<endl<<mysql_error( &ciyacaSQL )<<endl;
             return -1;
         } else {
             cout<<"new post: [ "<<postBody<<" ]"<<endl;
@@ -23,7 +23,7 @@ int post( int post_id, string postBody ) {
         string queryStr = "UPDATE posts SET post_string='" + postBody + "' WHERE post_id=" + to_string( post_id ) + ";";
 
         if( mysql_query( &ciyacaSQL, queryStr.c_str() ) ){
-            cout<<"failed to reply: [ "<<postBody<<" ]"<<endl;
+            cout<<"failed to reply: [ "<<postBody<<" ]"<<endl<<mysql_error( &ciyacaSQL )<<endl;
             return -1;
         } else {
             cout<<"new post: [ "<<postBody<<" ]"<<endl;
@@ -39,7 +39,7 @@ string checkPostFromID( int post_id ){
     string queryStr = "SELECT post_string FROM posts WHERE post_id=" + to_string( post_id ) + ";";
 
     if( mysql_query( &ciyacaSQL, queryStr.c_str() ) ){
-        cout<<"check post failed!"<<endl;
+        cout<<"check post failed!"<<endl<<mysql_error( &ciyacaSQL )<<endl;
         return "chekc post failed!";
     } else {
         MYSQL_RES* result = mysql_store_result( &ciyacaSQL );
@@ -58,7 +58,7 @@ string checkPosts( int quality ){
     string queryStr = "SELECT * FROM posts ORDER BY post_id DESC 0," + to_string( quality ) + ";";
 
     if( mysql_query( &ciyacaSQL, queryStr.c_str() ) ){
-        cout<<"check posts failed!"<<endl;
+        cout<<"check posts failed!"<<endl<<mysql_error( &ciyacaSQL )<<endl;
         return "check posts failed!";
     } else {
         MYSQL_RES* result = mysql_store_result( &ciyacaSQL );

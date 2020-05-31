@@ -12,7 +12,7 @@ int regist ( string username, string password ) {
     string queryStr = "INSERT INTO usr_pwd (username, password) VALUES ('" + username + "','" + password + "');";
 
     if ( mysql_query( &ciyacaSQL, queryStr.c_str() ) ) {
-        cout<<username<<" regist failed!"<<endl;
+        cout<<username<<" regist failed!"<<endl<<mysql_error( &ciyacaSQL )<<endl;
         return -1;
     } else {
 	    cout<<username<<" regist success!"<<endl;
@@ -27,7 +27,7 @@ int login ( string username, string password ) {
     string queryStr = "SELECT password FROM usr_pwd WHERE username = '" + username + "';";
 
     if( mysql_query( &ciyacaSQL, queryStr.c_str() ) ){
-        cout<<username<<" not exist!"<<endl;
+        cout<<username<<" not exist!"<<endl<<mysql_error( &ciyacaSQL )<<endl;
         return -2;
     } else {
         MYSQL_RES* result = mysql_use_result( &ciyacaSQL );
@@ -50,7 +50,7 @@ int joinGroup ( string username, string groupName ) {
     string queryStr = "INSERT INTO grp_usr (groupname, username) VALUES ('" + groupName + "','" + username + "');";
 
     if( mysql_query( &ciyacaSQL, queryStr.c_str() ) ){
-        cout<<"join "<<groupName<<" failed!"<<endl;
+        cout<<"join "<<groupName<<" failed!"<<endl<<mysql_error( &ciyacaSQL )<<endl;
         return -1;
     } else {
         cout<<username<<" is in "<<groupName<<" now!"<<endl;
@@ -62,10 +62,10 @@ int joinGroup ( string username, string groupName ) {
 
 int exitGroup ( string username, string groupName ) {
 
-    string queryStr = "DELETE FROM grp_usr WHERE group='" + groupName + "' AND username='" + username + "';";
+    string queryStr = "DELETE FROM grp_usr WHERE groupname='" + groupName + "' AND username='" + username + "';";
     
     if( mysql_query( &ciyacaSQL, queryStr.c_str() ) ){
-        cout<<"exit "<<groupName<<" failed!"<<endl;
+        cout<<"exit "<<groupName<<" failed!"<<endl<<mysql_error( &ciyacaSQL )<<endl;
         return -1;
     } else {
         cout<<username<<" is not in "<<groupName<<" now!"<<endl;

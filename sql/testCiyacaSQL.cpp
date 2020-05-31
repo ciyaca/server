@@ -5,93 +5,54 @@ using namespace std;
 
 MYSQL ciyacaSQL;
 
-int regist ( string username, string password ) {
+string checkPosts( int quality ){
 
-    string queryStr = "INSERT INTO usr_pwd (username, password) VALUES ('" + username + "','" + password + "');";
-
-    if ( mysql_query( &ciyacaSQL, queryStr.c_str() ) ) {
-        cout<<username<<" regist failed!"<<endl<<mysql_error( &ciyacaSQL )<<endl;
-        return -1;
-    } else {
-	    cout<<username<<" regist success!"<<endl;
-        return 1;
-    }
-
-}
-
-
-int login ( string username, string password ) {
-
-    string queryStr = "SELECT password FROM usr_pwd WHERE username = '" + username + "';";
+    string queryStr = "SELECT * FROM posts ORDER BY post_id DESC LIMIT 0," + to_string( quality ) + ";";
 
     if( mysql_query( &ciyacaSQL, queryStr.c_str() ) ){
-        cout<<username<<" not exist!"<<endl<<mysql_error( &ciyacaSQL )<<endl;
-        return -2;
-    } else {
-        MYSQL_RES* result = mysql_use_result( &ciyacaSQL );
-        MYSQL_ROW row = mysql_fetch_row( result );
-        string realPassword( row[0] );
-        mysql_free_result( result );
-        if( password == realPassword ){
-            cout<<username<<" login success!"<<endl;
-            return 1;
-        } else {
-            cout<<username<<" wrong password!"<<endl;
-            return -1;
-        }
-    }
-}
-
-
-int joinGroup ( string username, string groupName ) {
-
-    string queryStr = "INSERT INTO grp_usr (groupname, username) VALUES ('" + groupName + "','" + username + "');";
-    cout<< queryStr<<endl;
-
-    if( mysql_query( &ciyacaSQL, queryStr.c_str() ) ){
-        cout<<"join "<<groupName<<" failed!"<<endl<<mysql_error( &ciyacaSQL )<<endl;
-        return -1;
-    } else {
-        cout<<username<<" is in "<<groupName<<" now!"<<endl;
-        return 1;
-    }
-
-} 
-
-
-int exitGroup ( string username, string groupName ) {
-
-    string queryStr = "DELETE FROM grp_usr WHERE group='" + groupName + "' AND username='" + username + "';";
-    
-    if( mysql_query( &ciyacaSQL, queryStr.c_str() ) ){
-        cout<<"exit "<<groupName<<" failed!"<<endl;
-        return -1;
-    } else {
-        cout<<username<<" is not in "<<groupName<<" now!"<<endl;
-        return 1;
-    }
-
-}
-
-
-int boardcast ( string sourceName, string targetGroupName, string message ) {
-
-    string queryStr = "SELECT username FROM grp_usr WHERE groupname='" + targetGroupName + "';";
-
-    if( mysql_query( &ciyacaSQL, queryStr.c_str() ) ){
-        cout<<targetGroupName<<" not exist!"<<endl;
-        return -1;
+        cout<<"check posts failed!"<<endl<<mysql_error( &ciyacaSQL )<<endl;
+        return "check posts failed!";
     } else {
         MYSQL_RES* result = mysql_store_result( &ciyacaSQL );
-        cout<<mysql_num_rows( result )<<endl;
-        
+
+        string sumPostsString = "<lis>";
         for ( int i = 0; i<mysql_num_rows( result ); i++ ) {
             MYSQL_ROW row = mysql_fetch_row( result );
-            cout<<"From: "<<sourceName<<" To: "<<row[0]<<endl<<"[ "<<message<<" ]"<<endl;
+            sumPostsString += "<li>\n<div>";
+            sumPostsString += row[0];   // post_id
+            sumPostsString += "</div>\n";
+            sumPostsString += row[1]+4;   // post_string
         }
+        sumPostsString += "</lis>";
 
         mysql_free_result( result );
-        return 1;
+        return sumPostsString;
+    }
+
+}
+
+int post( int post_id, string postBody ) {
+
+    if( post_id == -1 ){
+        string queryStr = "INSERT INTO posts (post_string) VALUES ('" + postBody + "');";
+
+        if( mysql_query( &ciyacaSQL, queryStr.c_str() ) ){
+            cout<<"failed to post: [ "<<postBody<<" ]"<<endl<<mysql_error( &ciyacaSQL )<<endl;
+            return -1;
+        } else {
+            cout<<"new post: [ "<<postBody<<" ]"<<endl;
+            return 1;
+        }
+    } else {
+        string queryStr = "UPDATE posts SET post_string='" + postBody + "' WHERE post_id=" + to_string( post_id ) + ";";
+
+        if( mysql_query( &ciyacaSQL, queryStr.c_str() ) ){
+            cout<<"failed to reply: [ "<<postBody<<" ]"<<endl<<mysql_error( &ciyacaSQL )<<endl;
+            return -1;
+        } else {
+            cout<<"new post: [ "<<postBody<<" ]"<<endl;
+            return 1;
+        }
     }
 
 }
@@ -116,7 +77,5 @@ int main() {
 
     ciyacaSqlInit();
 
-    boardcast("sender", "grp1", "hello");
-
-
+    cout<<checkPosts(3)<<endl;
 }
