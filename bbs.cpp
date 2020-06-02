@@ -66,10 +66,10 @@ string checkPosts( int quality ){
         string sumPostsString = "<lis>";
         for ( int i = 0; i<mysql_num_rows( result ); i++ ) {
             MYSQL_ROW row = mysql_fetch_row( result );
-            sumPostsString += "<li>\n<div>";
+            sumPostsString += "\n<div>";
             sumPostsString += row[0];   // post_id
             sumPostsString += "</div>\n";
-            sumPostsString += row[1]+4;   // post_string
+            sumPostsString += row[1];   // post_string
         }
         sumPostsString += "</lis>";
 
@@ -89,7 +89,9 @@ int uploadFile( string fileName, vector<char> fileData ){
     outputFile.close();
 
     return 0;
+    
 }
+
 
 
 vector<char> downloadFile( string fileName ){
@@ -97,10 +99,13 @@ vector<char> downloadFile( string fileName ){
     vector<char> fileData;
     string path = "../net_disk/" + fileName;
     ifstream inputFile( path, ios::binary );
+    char byte_data;
 
-    long fileSize = inputFile.tellg();
-    fileData.resize( fileSize );
-    inputFile.read( fileData.data(), fileData.size() );
+    while( !inputFile.eof() ){
+        inputFile.read( &byte_data, 1 );
+        fileData.push_back( byte_data );
+    }
+    fileData.pop_back();
     inputFile.close();
 
     return fileData;

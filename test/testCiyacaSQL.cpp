@@ -77,5 +77,6 @@ int main() {
 
     ciyacaSqlInit();
 
+    post(-1, "jaskfslakdfjkdskfdslkfd");
     cout<<checkPosts(3)<<endl;
 }
