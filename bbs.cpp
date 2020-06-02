@@ -55,6 +55,7 @@ string checkPostFromID( int post_id ){
 
 string checkPosts( int quality ){
 
+    cout << "checkPosts:\n";
     string queryStr = "SELECT * FROM posts ORDER BY post_id DESC LIMIT 0," + to_string( quality ) + ";";
 
     if( mysql_query( &ciyacaSQL, queryStr.c_str() ) ){
@@ -66,14 +67,15 @@ string checkPosts( int quality ){
         string sumPostsString = "<lis>";
         for ( int i = 0; i<mysql_num_rows( result ); i++ ) {
             MYSQL_ROW row = mysql_fetch_row( result );
-            sumPostsString += "\n<div>";
+            sumPostsString += "<li>\n<div>";
             sumPostsString += row[0];   // post_id
             sumPostsString += "</div>\n";
-            sumPostsString += row[1];   // post_string
+            sumPostsString += row[1] + 4;   // post_string
         }
         sumPostsString += "</lis>";
 
         mysql_free_result( result );
+        cout << sumPostsString << endl;
         return sumPostsString;
     }
 
