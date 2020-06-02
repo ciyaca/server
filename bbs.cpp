@@ -55,7 +55,7 @@ string checkPostFromID( int post_id ){
 
 string checkPosts( int quality ){
 
-    string queryStr = "SELECT * FROM posts ORDER BY post_id DESC 0," + to_string( quality ) + ";";
+    string queryStr = "SELECT * FROM posts ORDER BY post_id DESC LIMIT 0," + to_string( quality ) + ";";
 
     if( mysql_query( &ciyacaSQL, queryStr.c_str() ) ){
         cout<<"check posts failed!"<<endl<<mysql_error( &ciyacaSQL )<<endl;
@@ -89,7 +89,7 @@ int uploadFile( string fileName, vector<char> fileData ){
     outputFile.close();
 
     return 0;
-    
+
 }
 
 
