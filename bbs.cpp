@@ -84,12 +84,11 @@ string checkPosts( int quality ){
 
 int uploadFile( string fileName, vector<char> fileData ){
 
-    string path = "../net_disk/" + fileName;
+    string path = "./net_disk/" + fileName;
     ofstream outputFile( path, ios::binary );
-
     outputFile.write( &fileData[0], fileData.size() );
     outputFile.close();
-
+    cout << "uploadFile: file saved in " << path << " size = " << fileData.size() << endl;
     return 0;
 
 }
@@ -99,7 +98,7 @@ int uploadFile( string fileName, vector<char> fileData ){
 vector<char> downloadFile( string fileName ){
 
     vector<char> fileData;
-    string path = "../net_disk/" + fileName;
+    string path = "./net_disk/" + fileName;
     ifstream inputFile( path, ios::binary );
     char byte_data;
 
@@ -110,6 +109,7 @@ vector<char> downloadFile( string fileName ){
     fileData.pop_back();
     inputFile.close();
 
+    cout << "downloadFile: " << path << " size = " << fileData.size() << endl;
     return fileData;
 
 }

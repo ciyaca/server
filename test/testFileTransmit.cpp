@@ -12,7 +12,7 @@ int uploadFile( string fileName, vector<char> fileData ){
 
     outputFile.write( &fileData[0], fileData.size() );
     outputFile.close();
-
+    cout << "uploadFile: file saved in " << path << endl;
     return 0;
 }
 
