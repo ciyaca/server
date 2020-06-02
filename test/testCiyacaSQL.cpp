@@ -18,14 +18,16 @@ string checkPosts( int quality ){
         string sumPostsString = "<lis>";
         for ( int i = 0; i<mysql_num_rows( result ); i++ ) {
             MYSQL_ROW row = mysql_fetch_row( result );
-            sumPostsString += "<li>\n<div>";
+            sumPostsString += "\n<div>";
             sumPostsString += row[0];   // post_id
             sumPostsString += "</div>\n";
-            sumPostsString += row[1]+4;   // post_string
+            sumPostsString += row[1];   // post_string
         }
         sumPostsString += "</lis>";
 
         mysql_free_result( result );
+
+        cout<<"checkPosts:"<<endl<<sumPostsString<<endl;
         return sumPostsString;
     }
 

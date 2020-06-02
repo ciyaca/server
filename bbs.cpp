@@ -74,6 +74,8 @@ string checkPosts( int quality ){
         sumPostsString += "</lis>";
 
         mysql_free_result( result );
+
+        cout<<"checkPosts:"<<endl<<sumPostsString<<endl;
         return sumPostsString;
     }
 
