@@ -40,6 +40,31 @@ LOCK TABLES `grp_usr` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `history_message`
+--
+
+DROP TABLE IF EXISTS `history_message`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `history_message` (
+  `message_id` int unsigned NOT NULL AUTO_INCREMENT,
+  `source_name` varchar(100) NOT NULL,
+  `target_name` varchar(100) NOT NULL,
+  `message` varchar(500) NOT NULL,
+  PRIMARY KEY (`message_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `history_message`
+--
+
+LOCK TABLES `history_message` WRITE;
+/*!40000 ALTER TABLE `history_message` DISABLE KEYS */;
+/*!40000 ALTER TABLE `history_message` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `posts`
 --
 
@@ -50,7 +75,7 @@ CREATE TABLE `posts` (
   `post_id` int unsigned NOT NULL AUTO_INCREMENT,
   `post_string` varchar(10000) NOT NULL,
   PRIMARY KEY (`post_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -59,6 +84,7 @@ CREATE TABLE `posts` (
 
 LOCK TABLES `posts` WRITE;
 /*!40000 ALTER TABLE `posts` DISABLE KEYS */;
+INSERT INTO `posts` VALUES (16,'jaskfslakdfjkdskfdslkfd'),(17,'jaskfslakdfjkdskfdslkfd'),(18,'jaskfslakdfjkdskfdslkfd');
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -94,4 +120,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-05-31  7:17:47
+-- Dump completed on 2020-06-03  2:08:55

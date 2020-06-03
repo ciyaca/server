@@ -5,56 +5,37 @@ using namespace std;
 
 MYSQL ciyacaSQL;
 
-string checkPosts( int quality ){
+int storeMessage( string sourceName, string targetName, string message){
 
-    string queryStr = "SELECT * FROM posts ORDER BY post_id DESC LIMIT 0," + to_string( quality ) + ";";
+    string queryStr = "INSERT INTO history_message (source_name, target_name, message) VALUES ('" + sourceName + "','" + targetName + "','" + message + "');";
 
     if( mysql_query( &ciyacaSQL, queryStr.c_str() ) ){
-        cout<<"check posts failed!"<<endl<<mysql_error( &ciyacaSQL )<<endl;
-        return "check posts failed!";
+        cout<<"store failed! "<<mysql_error( &ciyacaSQL )<<endl;
+        return -1;
     } else {
-        MYSQL_RES* result = mysql_store_result( &ciyacaSQL );
-
-        string sumPostsString = "<lis>";
-        for ( int i = 0; i<mysql_num_rows( result ); i++ ) {
-            MYSQL_ROW row = mysql_fetch_row( result );
-            sumPostsString += "\n<div>";
-            sumPostsString += row[0];   // post_id
-            sumPostsString += "</div>\n";
-            sumPostsString += row[1];   // post_string
-        }
-        sumPostsString += "</lis>";
-
-        mysql_free_result( result );
-
-        cout<<"checkPosts:"<<endl<<sumPostsString<<endl;
-        return sumPostsString;
+        return 1;
     }
-
 }
 
-int post( int post_id, string postBody ) {
+int checkHistoryMessage( string username ){
 
-    if( post_id == -1 ){
-        string queryStr = "INSERT INTO posts (post_string) VALUES ('" + postBody + "');";
+    string queryStr = "SELECT source_name,message FROM history_message WHERE target_name='" + username + "';";
 
-        if( mysql_query( &ciyacaSQL, queryStr.c_str() ) ){
-            cout<<"failed to post: [ "<<postBody<<" ]"<<endl<<mysql_error( &ciyacaSQL )<<endl;
-            return -1;
-        } else {
-            cout<<"new post: [ "<<postBody<<" ]"<<endl;
-            return 1;
-        }
+    if( mysql_query( &ciyacaSQL, queryStr.c_str() ) ){
+        cout<<username<<" not exist!"<<endl<<mysql_error( &ciyacaSQL )<<endl;
+        return -1;
     } else {
-        string queryStr = "UPDATE posts SET post_string='" + postBody + "' WHERE post_id=" + to_string( post_id ) + ";";
-
-        if( mysql_query( &ciyacaSQL, queryStr.c_str() ) ){
-            cout<<"failed to reply: [ "<<postBody<<" ]"<<endl<<mysql_error( &ciyacaSQL )<<endl;
-            return -1;
-        } else {
-            cout<<"new post: [ "<<postBody<<" ]"<<endl;
-            return 1;
+        MYSQL_RES* result = mysql_store_result( &ciyacaSQL );
+        
+        for ( int i = 0; i<mysql_num_rows( result ); i++ ) {
+            MYSQL_ROW row = mysql_fetch_row( result );
+            // auto iter = connections.find( username );
+            // iter->second.call<int>( "recvMessage", row[0], row[1] );
+            cout<<"From: "<<row[0]<<" To: "<<username<<endl<<"[ "<<row[1]<<" ]"<<endl;
         }
+
+        mysql_free_result( result );
+        return 1;
     }
 
 }
@@ -79,6 +60,5 @@ int main() {
 
     ciyacaSqlInit();
 
-    post(-1, "jaskfslakdfjkdskfdslkfd");
-    cout<<checkPosts(3)<<endl;
+    checkHistoryMessage( "TO");
 }
