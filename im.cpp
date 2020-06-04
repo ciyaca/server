@@ -23,7 +23,9 @@ int sendMessage ( string sourceName, string targetName, string message, int flag
     if( flag == 0 ){
 
         auto iter = connections.find( targetName );
-        iter->second.call<int>( "recvMessage", sourceName, message );
+
+        if((iter == connections.end()) == false)
+            iter->second.call<int>( "recvMessage", sourceName, message );
 
         storeMessage( sourceName, targetName, message );
 

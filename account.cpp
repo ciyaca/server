@@ -8,6 +8,7 @@ map<string, FeverRPC::Caller> connections;
 
 
 int regist ( string username, string password ) {
+    cout << "regist:\n" << endl;
 
     string queryStr = "INSERT INTO usr_pwd (username, password) VALUES ('" + username + "','" + password + "');";
 
