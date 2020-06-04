@@ -40,6 +40,7 @@ int main() {
             rpc.bind("checkPosts", checkPosts);
             rpc.bind("uploadFile", uploadFile);
             rpc.bind("downloadFile", downloadFile);
+            rpc.bind("checkHistoryMessage", checkHistoryMessage);
             rpc.c2s();
         }};
         thread_guard sg( serveOneClientTread );
