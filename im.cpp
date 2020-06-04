@@ -11,7 +11,7 @@ int sendMessage ( string sourceName, string targetName, string message, int flag
 
         auto iter = connections.find( targetName );
         iter->second.call<int>( "recvMessage", sourceName, message );
-
+        cout << "sendMessage single: ";
         cout<<"from: "<<sourceName<<"; to: "<<targetName<<endl<<"[ "<<message<<" ]"<<endl;
         return 0;
 
@@ -28,6 +28,7 @@ int sendMessage ( string sourceName, string targetName, string message, int flag
             for ( int i = 0; i<mysql_num_rows( result ); i++ ) {
                 MYSQL_ROW row = mysql_fetch_row( result );
                 auto iter = connections.find( row[0] );
+                cout << "sendMessage: ";
                 iter->second.call<int>( "recvMessage", sourceName, targetName, message );
                 cout<<"From: "<<sourceName<<" To: "<<row[0]<<endl<<"[ "<<message<<" ]"<<endl;
             }
@@ -42,6 +43,11 @@ int sendMessage ( string sourceName, string targetName, string message, int flag
 
 
 int sendFile( string sourceName, string targetName, string fileName, vector<char> fileData, int flag=0 ){
+
+    cout << "sendFile: " << sourceName << endl
+        << targetName << endl
+        << fileData.size() << endl
+        << flag << endl;
 
     if( flag == 0 ){
 
